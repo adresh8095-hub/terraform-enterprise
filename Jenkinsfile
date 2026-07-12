@@ -8,7 +8,7 @@ pipeline {
 
             steps {
 
-                git url: 'https://github.com/yourrepo.git'
+                git url: 'https://github.com/adresh8095-hub/terraform-enterprise.git'
 
             }
 
