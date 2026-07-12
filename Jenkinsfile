@@ -2,25 +2,13 @@ pipeline {
 
     agent any
 
-    stages {
-
-        stage('Checkout') {
-
-            steps {
-
-                git url: 'https://github.com/adresh8095-hub/terraform-enterprise.git'
-
-            }
-
-        }
-
         stage('Terraform Init') {
 
             steps {
 
                 dir('environments/dev') {
 
-                    sh 'terraform init'
+                    bat 'terraform init'
 
                 }
 
@@ -34,7 +22,7 @@ pipeline {
 
                 dir('environments/dev') {
 
-                    sh 'terraform validate'
+                    bat 'terraform validate'
 
                 }
 
@@ -48,7 +36,7 @@ pipeline {
 
                 dir('environments/dev') {
 
-                    sh 'terraform plan'
+                    bat 'terraform plan'
 
                 }
 
@@ -62,7 +50,7 @@ pipeline {
 
                 dir('environments/dev') {
 
-                    sh 'terraform apply -auto-approve'
+                    bat 'terraform apply -auto-approve'
 
                 }
 
