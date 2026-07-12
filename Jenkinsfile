@@ -19,7 +19,20 @@ pipeline {
                 }
             }
         }
-
+stage('Check AWS Environment') {
+    steps {
+        withCredentials([
+            [$class: 'AmazonWebServicesCredentialsBinding',
+             credentialsId: 'aws-creds']
+        ]) {
+            bat '''
+            echo AWS_ACCESS_KEY_ID=%AWS_ACCESS_KEY_ID%
+            echo AWS_SECRET_ACCESS_KEY=%AWS_SECRET_ACCESS_KEY%
+            echo AWS_SESSION_TOKEN=%AWS_SESSION_TOKEN%
+            '''
+        }
+    }
+}
         stage('Terraform Plan') {
             steps {
                 dir('environments/dev') {
