@@ -38,18 +38,14 @@ stage('Check AWS Environment') {
     }
 }
         stage('Terraform Plan') {
-            steps {
-                withCredentials([
-                    [$class: 'AmazonWebServicesCredentialsBinding',
-                    credentialsId: 'aws-creds']
-                ]) {
-                    dir('environments/dev') {
-                        bat 'terraform plan'
-                    }
-                }
+    steps {
+        withCredentials([aws(credentialsId: 'aws-creds')]) {
+            dir('environments/dev') {
+                bat 'terraform plan'
             }
         }
-
+    }
+}
         stage('Terraform Apply') {
             steps {
                 dir('environments/dev') {
