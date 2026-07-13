@@ -40,7 +40,7 @@ stage('Check AWS Environment') {
 }
         stage('Terraform Plan') {
     steps {
-        withCredentials([aws(credentialsId: 'aws-creds')]) {
+        withAWS(credentials: 'aws-creds', region: 'us-east-1') {
             dir('environments/dev') {
                 bat 'terraform plan'
             }
